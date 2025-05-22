@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Toko Makanan</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Warung Makanan</h1>
+
+    <!-- DAFTAR PRODUK -->
+    <h2>Daftar Produk</h2>
+    <table border="1" cellpadding="10" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Nama Produk</th>
+          <th>Harga</th>
+          <th>Beli</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(p => { %>
+          <tr>
+            <td><%= p.nama_produk %></td>
+            <td>Rp <%= Math.round(p.harga) %></td>
+            <td>
+              <form action="/pembelian" method="POST">
+                <input type="hidden" name="produk_id" value="<%= p.id %>">
+                <input 
+                  type="number" 
+                  name="jumlah" 
+                  placeholder="Input jumlah beli"
+                  required 
+                  min="1" 
+                  style="width: 160px;"
+                >
+                <button type="submit">Beli</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <!-- PEMBELIAN PENDING -->
+    <h2>Pembelian Pending</h2>
+    <table border="1" cellpadding="10" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th>Jumlah</th>
+          <th>Total Harga</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pembelian.forEach(pb => { %>
+          <tr>
+            <td><%= pb.nama_produk %></td>
+            <td><%= pb.jumlah %></td>
+            <td>Rp <%= Math.round(pb.total_harga) %></td>
+            <td><%= pb.status %></td>
+            <td>
+              <form action="/cancel/<%= pb.id %>" method="POST">
+                <button type="submit" onclick="return confirm('Yakin ingin membatalkan pembelian ini?')">Cancel</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
