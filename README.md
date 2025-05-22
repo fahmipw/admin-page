@@ -1,7 +1,7 @@
 🚀 Cara Menjalankan Aplikasi
 1. Clone Repository
  
-    `git clone https://github.com/fahmipw/admin-toko.git`
+    `git clone https://github.com/fahmipw/admin-page.git`
  
     `cd admin-page`
 
